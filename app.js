@@ -1,5 +1,5 @@
 import express from "express";
-import cor from "cors";
+import cors from "cors";
 import winston from "winston";
 import clientesRouter from "./routes/cliente.route.js";
 import livrosRouter from "./routes/livro.route.js";
