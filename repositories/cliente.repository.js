@@ -10,12 +10,12 @@ async function insertClient(cliente) {
 
 async function updateClient(client) {
     try {
-        return await Clientes.update(client, {
+        await Clientes.update(client, {
             where: {
                 clienteId: client.clienteId
             }
         });
-       // return await getClient(client.clienteId);
+       return await getClient(client.clienteId);
     } catch (err) {
         throw err;
     };
