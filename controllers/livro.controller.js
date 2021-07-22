@@ -45,7 +45,7 @@ async function deleteLivro(req, res, next) {
 
 async function getLivros(req, res, next) {
     try {
-        res.send(await LivroService.getLivros());
+        res.send(await LivroService.getLivros(req.query.autorId));
         global.logger.info(`GET /livro`);
     } catch(err) {
         next(err);
@@ -61,10 +61,39 @@ async function getLivro(req, res, next) {
     };
 };
 
+async function createLivroInfo(req, res, next) {
+    try {
+        let livroInfo = req.body;
+        if(!livroInfo.livroId) {
+            throw new Error("livroId é um campo obrigatório.");
+        }
+        res.send(await LivroService.createLivroInfo(livroInfo));
+        global.logger.info(`POST /livro/info - ${JSON.stringify(livroInfo)}`);
+    } catch(err) {
+        next(err);
+    };
+};
+
+async function updateLivroInfo(req, res, next) {
+    try {
+        let livroInfo = req.body;
+        if(!livroInfo.livroId) {
+            throw new Error("livroId é um campo obrigatório.");
+        }
+        res.send(await LivroService.updateLivroInfo(livroInfo));
+        global.logger.info(`PUT /livro/info - ${JSON.stringify(livroInfo)}`);
+    } catch(err) {
+        next(err);
+    };
+};
+
+
 export default {
     createLivro,
     updateLivro,
     deleteLivro,
     getLivros,
-    getLivro
+    getLivro,
+    createLivroInfo,
+    updateLivroInfo
 }
