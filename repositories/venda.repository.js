@@ -11,6 +11,78 @@ async function insertSale(venda) {
     }
 }
 
+async function getSale(id) {
+    try {
+        return await Venda.findByPk(id)
+    } catch (err) {
+        throw err
+    }
+}
+
+async function getSales() {
+    try {
+        return await Venda.findAll()
+    } catch (err) {
+        throw err
+    }
+}
+
+async function getSalesByClientId(clienteId) {
+    try {
+        return await Venda.findAll({
+            include: [
+                {
+                    model: Cliente,
+                    where: {
+                        clienteId: clienteId,
+                    },
+                },
+            ],
+        })
+    } catch (err) {
+        throw err
+    }
+}
+
+async function getSalesByBookId(livroId) {
+    try {
+        return await Venda.findAll({
+            include: [
+                {
+                    model: Livro,
+                    where: {
+                        livroId: livroId,
+                    },
+                },
+            ],
+        })
+    } catch (err) {
+        throw err
+    }
+}
+
+async function getSalesByAuthorId(autorId) {
+    try {
+        return await Venda.findAll({
+            include: [
+                {
+                    model: Livro,
+                    where: {
+                        autorId: autorId,
+                    },
+                },
+            ],
+        })
+    } catch (err) {
+        throw err
+    }
+}
+
 export default {
     insertSale,
+    getSale,
+    getSales,
+    getSalesByClientId,
+    getSalesByBookId,
+    getSalesByAuthorId,
 }

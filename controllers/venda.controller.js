@@ -14,6 +14,32 @@ async function createVenda(req, res, next) {
     }
 }
 
+async function getVenda(req, res, next) {
+    try {
+        res.send(await VendaService.getVenda(req.params.id))
+        global.logger.info(`GET /venda/${req.params.id}`)
+    } catch (err) {
+        next(err)
+    }
+}
+
+async function getVendas(req, res, next) {
+    try {
+        res.send(
+            await VendaService.getVendas(
+                req.query.clienteId,
+                req.query.livroId,
+                req.query.autorId
+            )
+        )
+        global.logger.info(`GET /venda`)
+    } catch (err) {
+        next(err)
+    }
+}
+
 export default {
     createVenda,
+    getVenda,
+    getVendas,
 }

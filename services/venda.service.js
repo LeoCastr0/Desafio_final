@@ -25,6 +25,25 @@ async function createVenda(venda) {
     }
 }
 
+async function getVenda(id) {
+    return await VendaRepository.getSale(id)
+}
+
+async function getVendas(clienteId, livroId, autorId) {
+    if (clienteId) {
+        return await VendaRepository.getSalesByClientId(clienteId)
+    }
+    if (livroId) {
+        return await VendaRepository.getSalesByBookId(livroId)
+    }
+    if (autorId) {
+        return await VendaRepository.getSalesByAuthorId(autorId)
+    }
+    return await VendaRepository.getSales()
+}
+
 export default {
     createVenda,
+    getVenda,
+    getVendas,
 }
