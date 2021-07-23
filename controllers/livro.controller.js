@@ -66,11 +66,9 @@ async function getLivro(req, res, next) {
 async function createLivroInfo(req, res, next) {
     try {
         let livroInfo = req.body
-        let livro = await LivroService.getLivro(livroInfo.livroId)
+        await LivroService.getLivro(livroInfo.livroId)
         if (!livroInfo.livroId) {
             throw new Error("livroId é um campo obrigatório.")
-        } else if (livro.livroId != livroInfo.livroId) {
-            throw new Error("Livro não existe")
         }
         res.send(await LivroService.createLivroInfo(livroInfo))
         global.logger.info(`POST /livro/info - ${JSON.stringify(livroInfo)}`)

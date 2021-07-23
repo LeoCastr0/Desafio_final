@@ -50,7 +50,11 @@ async function getLivros() {
 
 async function getLivro(id) {
     try {
-        return await Livros.findByPk(id)
+        const livro = await Livros.findByPk(id)
+        if (!livro) {
+            throw new Error("Livro não está cadastrado !")
+        }
+        return livro
     } catch (err) {
         throw err
     }
